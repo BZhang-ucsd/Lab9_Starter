@@ -6,6 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "ee319bf9fa8241c1898070cdfa1a7a6a"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
 
   <style>
     button {
@@ -95,13 +102,96 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
+
+
+      // Step 5 throw
+      if (!isValidNumber(firstNum) || !isValidNumber(secondNum)) {
+        throw new Error('Invalid characters entered. Please enter numeric values.');
+      }
+
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
+
+    function isValidNumber(value) {
+      return !isNaN(value);
+    }
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    // Step 2
+    errorBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const button = btn.innerText.toLowerCase();
+      const data = 'Example data';
+      button.innerText = 'Console dirxml';
+      
+      switch (button) {
+        case 'console log':
+          console.log('Console Log Demo');
+          break;
+        case 'console error':
+          console.error('Console Error Demo');
+          break;
+        case 'console count':
+          console.count('Count Button');
+          break;
+        case 'console warn':
+          console.warn('Console Warn Button');
+          break;
+        case 'console assert':
+          let num = 2;
+          console.assert(num == 3, 'The number does not equal 3');
+          break;
+        case 'console clear':
+          console.clear();
+          break;
+        case 'console dir':
+          console.dir(btn);
+          break;
+        case 'console dirxml':
+          console.dirxml(btn);
+          break;
+        case 'console group start':
+          console.group('Console Log Demo');
+          break;
+        case 'console group end':
+          console.groupEnd();
+          break;
+        case 'console table':
+          let tableData = [
+            ['This', 'is', 'Test'],
+            ['CSE', '110', 'Lab'],
+            ['This', 'is', 'Lab 9']
+          ];
+          console.table(tableData);
+          break;
+        case 'start timer':
+          console.time('Timer Button');
+          break;
+        case 'end timer':
+          console.timeEnd('Timer Button');
+          break;
+        case 'console trace':
+          console.trace();
+          break;
+        case 'trigger a global error':
+            // step 3 try/catch/finally
+          try {
+            // Code that may throw an error
+            const undefinedVariable = undefined;
+            console.log(undefinedVariable.prop); // Accessing a property of undefined will throw an error
+          } catch (error) {
+            console.error('An error occurred:', error);
+          } finally {
+            console.log('There will always be errors my friend.');
+          }
+      }
+    });
+  });
+
   </script>
 </body>
 
